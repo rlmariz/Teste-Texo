@@ -2,22 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Teste_Texo_Api
 {
     public class LoadDataBase
     {
-
+     
         public void LoadData(CatalogContext context)
         {
-            int year; 
-            string title; 
-            string studios; 
-            string producers;
-            bool winner;
-            TitleItem titleItem;
-
+            MovieItem titleItem;
 
             var path = @$"{AppDomain.CurrentDomain.BaseDirectory}\movielist.csv";
             using (TextFieldParser csvReader = new TextFieldParser(path))
@@ -34,12 +29,38 @@ namespace Teste_Texo_Api
 
                     string[] fields = csvReader.ReadFields();
 
-                    titleItem = new TitleItem();
+                    titleItem = new MovieItem();
                     titleItem.Year = Int32.Parse(fields[0]);
                     titleItem.Title = fields[1];
-                    titleItem.Studios = fields[2];
-                    titleItem.Producers = fields[3];
-                    titleItem.Winner = fields[4].Equals("YES");
+                    foreach (var studio in fields[2].Split(',').ToList())
+                    {
+                        if (studio.Trim() != "")
+                        {
+                            titleItem.Studios.Add(studio.Trim());
+                        }
+                    }
+                    foreach (var producer in fields[3].Split(',').ToList())
+                    {
+                        if (producer.Trim() != "")
+                        {
+                            if (producer.Contains("and"))
+                            {
+                                foreach (var producersplitand in producer.Split(" and ").ToList())
+                                {
+                                    if (producersplitand.Trim() != "") { 
+                                        titleItem.Producers.Add(producersplitand.Trim());
+                                    }
+                                }                                    
+                            }
+                            else
+                            {
+                                titleItem.Producers.Add(producer.Trim());
+                            }                            
+                        }
+                    }
+                    //titleItem.Studios = fields[2].Split(',').ToList();
+                    //titleItem.Producers = fields[3].Split(',').ToList();
+                    titleItem.Winner = fields[4].ToUpper().Equals("YES");
 
                     context.TitleItems.Add(titleItem);
                     context.SaveChanges();

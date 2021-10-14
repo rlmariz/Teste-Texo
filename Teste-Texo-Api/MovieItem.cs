@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Teste_Texo_Api
 {
-    public class TitleItem
+    public class MovieItem
     {
         public long Id { get; set; }
         public int Year { get; set; }
         public string Title { get; set; }
-        public string Studios { get; set; }
-        public string Producers { get; set; }
+        public List<string> Studios { get; set; } = new List<string>();
+        public List<string> Producers { get; set; } = new List<string>();
         public bool Winner { get; set; }
     }
 }

@@ -12,87 +12,37 @@ namespace Teste_Texo_Api.Controllers
     [Route("[controller]")]
     public class MovieController : Controller
     {
-        private readonly CatalogContext context;
+        private readonly IRepositoryMovie repositoryMovie;
 
-        public MovieController(CatalogContext context)
+        public MovieController(IRepositoryMovie repositoryMovie)
         {
-            this.context = context;
+            this.repositoryMovie = repositoryMovie;
         }
 
         [HttpGet]
         public ActionResult Get()
         {
-            return Content(JsonConvert.SerializeObject(this.context.TitleItems.AsQueryable().ToList()), "application/json");
-            //return this.context.TitleItems.AsQueryable().ToList();
+            return Content(JsonConvert.SerializeObject(repositoryMovie.GetAll()), "application/json");
         }
 
-        // GET: MovieController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult Get(int Id)
         {
-            return View();
+            return Content(JsonConvert.SerializeObject(repositoryMovie.Get(Id)), "application/json");
         }
 
-        // GET: MovieController/Create
-        public ActionResult Create()
+        [HttpGet("wins")]
+        public ActionResult GetWins()
         {
-            return View();
+            return Content(JsonConvert.SerializeObject(repositoryMovie.GetWins()), "application/json");
         }
 
-        // POST: MovieController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [HttpGet("winsstatistic")]
+        public ActionResult GetWinsStatistic()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Content(JsonConvert.SerializeObject(repositoryMovie.GetWinsStatistic()), "application/json");
         }
 
-        // GET: MovieController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: MovieController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: MovieController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: MovieController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

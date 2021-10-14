@@ -19,8 +19,7 @@
     },
     "Teste_Texo_Api": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "movie",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

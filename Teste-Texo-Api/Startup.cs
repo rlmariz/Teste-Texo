@@ -35,8 +35,10 @@ namespace Teste_Texo_Api
             services.AddControllers();
 
             services.AddDbContext<CatalogContext>(opt => opt.UseInMemoryDatabase("Catalog"));
-            
-            var context = services.BuildServiceProvider().GetService<CatalogContext>();
+
+            services.AddScoped(typeof(IRepositoryMovie), typeof(RepositoryMovie));
+
+            CatalogContext context = services.BuildServiceProvider().GetService<CatalogContext>();
             var loadDataBase = new LoadDataBase();
             loadDataBase.LoadData(context);
         }
