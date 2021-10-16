@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Teste_Texo_Api
 {
@@ -31,8 +28,6 @@ namespace Teste_Texo_Api
 
                 while (!csvReader.EndOfData)
                 {
-                    // Read current line fields, pointer moves to the next line.
-
                     string[] fields = csvReader.ReadFields();
 
                     titleItem = new MovieItem();
@@ -64,13 +59,9 @@ namespace Teste_Texo_Api
                             }                            
                         }
                     }
-                    //titleItem.Studios = fields[2].Split(',').ToList();
-                    //titleItem.Producers = fields[3].Split(',').ToList();
                     titleItem.Winner = fields[4].ToUpper().Equals("YES");
-
                     context.TitleItems.Add(titleItem);
                     context.SaveChanges();
-                    //System.Console.WriteLine(title);
                 }
 
             }

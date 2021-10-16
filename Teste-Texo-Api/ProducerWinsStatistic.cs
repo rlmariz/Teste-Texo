@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Teste_Texo_Api
+﻿namespace Teste_Texo_Api
 {
     public class ProducerWinsStatistic
     {

@@ -1,15 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Teste_Texo_Api
 {
@@ -66,13 +62,10 @@ namespace Teste_Texo_Api
 
             //});
             CatalogContext context = services.BuildServiceProvider().GetService<CatalogContext>();
-            var loadDataBase = new LoadDataBase(context);
-            loadDataBase.LoadData(path);
-        }
-
-        public void LoadDada()
-        {
-
+            if (context.TitleItems.Count() == 0) { 
+                var loadDataBase = new LoadDataBase(context);
+                loadDataBase.LoadData(path);
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Net.Http;
 using Teste_Texo_Api;
-using Xunit;
 
 namespace Texo.Catalog.TesteIntegracao
 {
@@ -20,9 +18,6 @@ namespace Texo.Catalog.TesteIntegracao
 
         private void SetupCliente()
         {
-            //_server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
-            //Client = _server.CreateClient();
-
             _server = new TestServer(new WebHostBuilder()
                .ConfigureAppConfiguration((context, builder) =>
                {

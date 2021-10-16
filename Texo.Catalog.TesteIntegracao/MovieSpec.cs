@@ -1,18 +1,16 @@
 ﻿using FluentAssertions;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Teste_Texo_Api;
 using Xunit;
 
 namespace Texo.Catalog.TesteIntegracao
-{    
-    public class MovieSpec //: IClassFixture<CustomWebApplicationFactory<Startup>>
+{
+    public class MovieSpec
     {
         private readonly TestContext testContext;
 
@@ -72,8 +70,8 @@ namespace Texo.Catalog.TesteIntegracao
             var response = await testContext.Client.GetAsync("/movie/winners");
             response.EnsureSuccessStatusCode();
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            var task = ResponseToObjectAsync<MovieItem>(response);
-            task.Result.Title.Should().Be("Title 01");
+            var task = ResponseToObjectAsync<List<MovieItem>>(response);
+            task.Result.Count.Should().Be(12);
         }
 
         [Fact]
