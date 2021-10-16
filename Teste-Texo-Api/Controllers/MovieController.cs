@@ -31,6 +31,12 @@ namespace Teste_Texo_Api.Controllers
         {
             return Content(JsonConvert.SerializeObject(repositoryMovie.Get(Id)), "application/json");
         }
+        
+        [HttpGet("winners")]
+        public ActionResult GetWinners()
+        {
+            return Content(JsonConvert.SerializeObject(repositoryMovie.GetWinners()), "application/json");
+        }
 
         [HttpGet("wins")]
         public ActionResult GetWins()

@@ -9,12 +9,18 @@ namespace Teste_Texo_Api
 {
     public class LoadDataBase
     {
-     
-        public void LoadData(CatalogContext context)
+
+        protected readonly CatalogContext context;
+
+        public LoadDataBase(CatalogContext context)
+        {
+            this.context = context;
+        }
+
+        public void LoadData(string path)
         {
             MovieItem titleItem;
 
-            var path = @$"{AppDomain.CurrentDomain.BaseDirectory}\movielist.csv";
             using (TextFieldParser csvReader = new TextFieldParser(path))
             {
                 csvReader.CommentTokens = new string[] { "#" };

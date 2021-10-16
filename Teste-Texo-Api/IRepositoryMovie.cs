@@ -11,5 +11,6 @@ namespace Teste_Texo_Api
         MovieItem Get(int Id);
         List<ProducerWins> GetWins();
         ProducerWinsStatisticListModel GetWinsStatistic();
+        List<MovieItem> GetWinners();
     }
 }

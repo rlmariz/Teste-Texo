@@ -1,0 +1,21 @@
+year;title;studios;producers;winner
+2003;Title 01; Studio 1, Studio 2, Studio 3; Producer 1, Producer 2 and Producer 3;Yes
+2005;Title 02; Studio 4; Producer 4;Yes
+1980;Title 03; Studio 1, Studio 2; Producer 1 and Producer 2;No
+2020;Title 04; Studio 7; Producer 7;Yes
+1980;Title 05; Studio 1; Producer 1;
+2021;Title 06; Studio 1, Studio 2, Studio 3; Producer 1, Producer 2 and Producer 3;
+1983;Title 07; Studio 5, Studio 6; Producer 5, Producer 6;Yes
+1998;Title 08; Studio 2; Producer 2;Yes
+2021;Title 09; Studio 1, Studio 6, Studio 9; Producer 1, Producer 6,Producer 9;
+2000;Title 10; Studio 1, Studio 2, Studio 3; Producer 1, Producer 2 and Producer 3;No
+2021;Title 11; Studio 7; Producer 7;Yes
+1995;Title 12; Studio 1, Studio 2, Studio 3; Producer 1, Producer 2 and Producer 3;No
+2018;Title 13; Studio 1; Producer 1;Yes
+1980;Title 14; Studio 8, Studio 9; Producer 8 and Producer 9;Yes
+1988;Title 15; Studio 2, Studio 5, Studio 9; Producer 2, Producer 5 and Producer 9;Yes
+2007;Title 16; Studio 4; Producer 4;Yes
+1981;Title 17; Studio 8, Studio 9; Producer 8 and Producer 9;Yes
+2005;Title 18; Studio 4; Producer 4;Yes
+1987;Title 19; Studio 4, Studio 5; Producer 4, Producer 5;
+2015;Title 20; Studio 4, Studio 5, Studio 6; Producer 4, Producer 5, Producer 6;

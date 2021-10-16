@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\movielist.csv" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\movielist.csv" CopyToOutputDirectory="PreserveNewest" Link="movielist.csv" />
   </ItemGroup>
 
   <ItemGroup>

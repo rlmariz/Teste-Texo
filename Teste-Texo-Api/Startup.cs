@@ -18,6 +18,7 @@ namespace Teste_Texo_Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -38,9 +39,40 @@ namespace Teste_Texo_Api
 
             services.AddScoped(typeof(IRepositoryMovie), typeof(RepositoryMovie));
 
+            var dataBase = Configuration.GetSection("DataBase").Value;
+            var dir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = @$"{dir}{dataBase}";
+            Console.WriteLine($"Load DataBase: {path}");
+
+
+            //services.AddOptions<CookieAuthenticationOptions>(
+            //          CookieAuthenticationDefaults.AuthenticationScheme)
+            //  .Configure<IMyService>((options, myService) =>
+            //  {
+            //      options.LoginPath = myService.GetLoginPath();
+            //  });
+
+            //serviceProvider
+            //using (var context = serviceProvider.GetService<CatalogContext>())
+            //{
+            // do stuff
+            //}
+
+            //services.Configure<CatalogContext>((context) =>
+            //{
+
+            //    var loadDataBase = new LoadDataBase(context);
+            //    loadDataBase.LoadData(path);
+
+            //});
             CatalogContext context = services.BuildServiceProvider().GetService<CatalogContext>();
-            var loadDataBase = new LoadDataBase();
-            loadDataBase.LoadData(context);
+            var loadDataBase = new LoadDataBase(context);
+            loadDataBase.LoadData(path);
+        }
+
+        public void LoadDada()
+        {
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

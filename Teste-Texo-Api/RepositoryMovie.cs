@@ -23,9 +23,13 @@ namespace Teste_Texo_Api
 
         public List<MovieItem> GetAll()
         {
-            return this.context.TitleItems.AsQueryable().ToList();
+            return this.context.TitleItems.ToList();
         }
 
+        public List<MovieItem> GetWinners()
+        {
+            return this.context.TitleItems.AsQueryable().Where(b => b.Winner).ToList();
+        }
 
         public List<ProducerWins> GetWins()
         {
@@ -77,7 +81,7 @@ namespace Teste_Texo_Api
                 producerWins2.Max.Interval = producerWins2.Max.FollowingWin - producerWins2.Max.PreviousWin;
             }                
 
-            return values.ToList();            
+            return values.OrderBy(b => b.Producer).ToList();            
         }
 
         public ProducerWinsStatisticListModel GetWinsStatistic()
@@ -116,9 +120,9 @@ namespace Teste_Texo_Api
                 ret.Max.Add(new ProducerWinsStatisticItemModel()
                 {
                     Producer = producerWins.Producer,
-                    Interval = producerWins.Min.Interval,
-                    PreviousWin = producerWins.Min.PreviousWin,
-                    FollowingWin = producerWins.Min.FollowingWin
+                    Interval = producerWins.Max.Interval,
+                    PreviousWin = producerWins.Max.PreviousWin,
+                    FollowingWin = producerWins.Max.FollowingWin
                 });
             }
 
