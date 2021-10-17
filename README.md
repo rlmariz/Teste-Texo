@@ -1,20 +1,93 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Texo.Catalog.Api
+> Api de Teste para processo seletivo Texo.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Projeto Azure:
+https://dev.azure.com/rlmariz/Teste-Texo
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+Repositório Git:
+https://dev.azure.com/rlmariz/_git/Teste-Texo
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Clone Git:
+https://rlmariz@dev.azure.com/rlmariz/Teste-Texo/_git/Teste-Texo
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+## Parametrização
+
+A porta padrão está configurada como 5000.
+
+A base de dados para ser carregada pode ser configurada no arquivo appsettings.json.
+
+```
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "DataBase": "movielist.csv"
+}
+```
+
+Está sendo considerado como serapação de produtores os caracteres "," e "and".
+
+## Requisições Get
+| Endereço                                  |  Descrição                |
+| ------                                    | ------                    |
+| http://localhost:5000/movie               | Retorna lista de todos os indicados.|
+| http://localhost:5000/movie/10            | Retorna uma indicação pelo código, sendo o código a sequencia no arquivo que foi carregado.|
+| http://localhost:5000/movie/winners       | Retorna lista de todos os vencedores.|
+| http://localhost:5000/movie/wins          | Todos produtores vencedores com lista de anos que foram vencedores, menor e maior intervalo que foi venvedor.|
+| http://localhost:5000/movie/winsstatistic | Lista produtor com maior intervalo entre dois prêmios consecutivos, e o que obteve dois prêmios mais rápido.|
+
+## Testes de Integração
+
+Os testes de integração foram realizados com base de dados com cenários conhecido(movietest.csv), sendo:
+
+* 20 - Indicações
+* 12 - Vencedores
+
+Resultado Esperado
+```
+{
+    "Min": [
+        {
+            "Producer": "Producer 7",
+            "Interval": 1,
+            "PreviousWin": 2020,
+            "FollowingWin": 2021
+        },
+        {
+            "Producer": "Producer 8",
+            "Interval": 1,
+            "PreviousWin": 1980,
+            "FollowingWin": 1981
+        },
+        {
+            "Producer": "Producer 9",
+            "Interval": 1,
+            "PreviousWin": 1980,
+            "FollowingWin": 1981
+        }
+    ],
+    "Max": [
+        {
+            "Producer": "Producer 1",
+            "Interval": 15,
+            "PreviousWin": 2003,
+            "FollowingWin": 2018
+        },
+        {
+            "Producer": "Producer 2",
+            "Interval": 15,
+            "PreviousWin": 1988,
+            "FollowingWin": 2003
+        }
+    ]
+} 
+```
+
+## Postman
+Existe um arquivo com requisições postman Texo.Postman_Collection.json.

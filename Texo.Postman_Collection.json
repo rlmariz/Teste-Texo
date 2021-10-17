@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "42c51644-7de3-4227-a9a0-f0596b431e5f",
+		"name": "Texo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Indicados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/movie",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Indicado Por Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/movie/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"movie",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vencedores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/movie/winners",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"movie",
+						"winners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vencedores Ano, Menor, Maior",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/movie/wins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"movie",
+						"wins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estátistica",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/movie/winsstatistic",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"movie",
+						"winsstatistic"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
