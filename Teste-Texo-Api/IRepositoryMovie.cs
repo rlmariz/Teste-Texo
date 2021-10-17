@@ -9,5 +9,8 @@ namespace Teste_Texo_Api
         List<ProducerWins> GetWins();
         ProducerWinsStatisticListModel GetWinsStatistic();
         List<MovieItem> GetWinners();
+        void LoadData(string path);
+        int Count();
+        bool Any();
     }
 }

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Linq;
 
 namespace Teste_Texo_Api
 {
@@ -34,43 +33,21 @@ namespace Teste_Texo_Api
             services.AddDbContext<CatalogContext>(opt => opt.UseInMemoryDatabase("Catalog"));
 
             services.AddScoped(typeof(IRepositoryMovie), typeof(RepositoryMovie));
-
-            var dataBase = Configuration.GetSection("DataBase").Value;
-            var dir = AppDomain.CurrentDomain.BaseDirectory;
-            var path = @$"{dir}{dataBase}";
-            Console.WriteLine($"Load DataBase: {path}");
-
-
-            //services.AddOptions<CookieAuthenticationOptions>(
-            //          CookieAuthenticationDefaults.AuthenticationScheme)
-            //  .Configure<IMyService>((options, myService) =>
-            //  {
-            //      options.LoginPath = myService.GetLoginPath();
-            //  });
-
-            //serviceProvider
-            //using (var context = serviceProvider.GetService<CatalogContext>())
-            //{
-            // do stuff
-            //}
-
-            //services.Configure<CatalogContext>((context) =>
-            //{
-
-            //    var loadDataBase = new LoadDataBase(context);
-            //    loadDataBase.LoadData(path);
-
-            //});
-            CatalogContext context = services.BuildServiceProvider().GetService<CatalogContext>();
-            if (context.TitleItems.Count() == 0) { 
-                var loadDataBase = new LoadDataBase(context);
-                loadDataBase.LoadData(path);
-            }
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRepositoryMovie repositoryMovie)
         {
+            if (!repositoryMovie.Any())
+            {
+                var dataBase = Configuration.GetSection("DataBase").Value;
+                var dir = AppDomain.CurrentDomain.BaseDirectory;
+                var path = @$"{dir}{dataBase}";
+                Console.WriteLine($"Load DataBase: {path}");
+                repositoryMovie.LoadData(path);
+            }
+
             app.UseCors("AllowAll");
 
             if (env.IsDevelopment())

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Teste_Texo_Api
@@ -11,6 +13,16 @@ namespace Teste_Texo_Api
         public RepositoryMovie(CatalogContext context)
         {
             this.context = context;
+        }
+
+        public bool Any()
+        {
+            return context.TitleItems.Any();
+        }
+
+        public int Count()
+        {
+            return context.TitleItems.Count();
         }
 
         public MovieItem Get(int Id)
@@ -36,7 +48,8 @@ namespace Teste_Texo_Api
 
             foreach (var movieItem in GetAll())
             {
-                if (movieItem.Winner) { 
+                if (movieItem.Winner)
+                {
                     foreach (var producer in movieItem.Producers)
                     {
                         if (ret.TryGetValue(producer, out producerWins))
@@ -61,7 +74,7 @@ namespace Teste_Texo_Api
             Dictionary<string, ProducerWins>.ValueCollection values = ret.Values;
 
             foreach (var producerWins2 in values.Where(v => v.Wins.Count() > 1))
-            { 
+            {
                 for (int i = 0; i < producerWins2.Wins.Count() - 1; i++)
                 {
                     var interval = producerWins2.Wins[i + 1] - producerWins2.Wins[i];
@@ -76,9 +89,9 @@ namespace Teste_Texo_Api
                 producerWins2.Max.PreviousWin = producerWins2.Wins.Min();
                 producerWins2.Max.FollowingWin = producerWins2.Wins.Max();
                 producerWins2.Max.Interval = producerWins2.Max.FollowingWin - producerWins2.Max.PreviousWin;
-            }                
+            }
 
-            return values.OrderBy(b => b.Producer).ToList();            
+            return values.OrderBy(b => b.Producer).ToList();
         }
 
         public ProducerWinsStatisticListModel GetWinsStatistic()
@@ -88,7 +101,7 @@ namespace Teste_Texo_Api
             var listWins = GetWins();
             foreach (var producerWins in listWins)
             {
-                if((minInterval == 0) || (producerWins.Min.Interval > 0 && producerWins.Min.Interval < minInterval))
+                if ((minInterval == 0) || (producerWins.Min.Interval > 0 && producerWins.Min.Interval < minInterval))
                 {
                     minInterval = producerWins.Min.Interval;
                 }
@@ -124,6 +137,60 @@ namespace Teste_Texo_Api
             }
 
             return ret;
+        }
+
+        public void LoadData(string path)
+        {
+            MovieItem titleItem;
+
+            using (TextFieldParser csvReader = new TextFieldParser(path))
+            {
+                csvReader.CommentTokens = new string[] { "#" };
+                csvReader.SetDelimiters(new string[] { ";" });
+                csvReader.HasFieldsEnclosedInQuotes = true;
+
+                csvReader.ReadLine();
+
+                while (!csvReader.EndOfData)
+                {
+                    string[] fields = csvReader.ReadFields();
+
+                    titleItem = new MovieItem();
+                    titleItem.Year = Int32.Parse(fields[0]);
+                    titleItem.Title = fields[1];
+                    foreach (var studio in fields[2].Split(',').ToList())
+                    {
+                        if (studio.Trim() != "")
+                        {
+                            titleItem.Studios.Add(studio.Trim());
+                        }
+                    }
+                    foreach (var producer in fields[3].Split(',').ToList())
+                    {
+                        if (producer.Trim() != "")
+                        {
+                            if (producer.Contains("and"))
+                            {
+                                foreach (var producersplitand in producer.Split(" and ").ToList())
+                                {
+                                    if (producersplitand.Trim() != "")
+                                    {
+                                        titleItem.Producers.Add(producersplitand.Trim());
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                titleItem.Producers.Add(producer.Trim());
+                            }
+                        }
+                    }
+                    titleItem.Winner = fields[4].ToUpper().Equals("YES");
+                    context.TitleItems.Add(titleItem);
+                    context.SaveChanges();
+                }
+
+            }
         }
     }
 }
