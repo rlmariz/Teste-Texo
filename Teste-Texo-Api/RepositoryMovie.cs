@@ -73,9 +73,9 @@ namespace Teste_Texo_Api
 
             Dictionary<string, ProducerWins>.ValueCollection values = ret.Values;
 
-            foreach (var producerWins2 in values.Where(v => v.Wins.Count() > 1))
+            foreach (var producerWins2 in values.Where(v => v.Wins.Count > 1))
             {
-                for (int i = 0; i < producerWins2.Wins.Count() - 1; i++)
+                for (int i = 0; i < producerWins2.Wins.Count - 1; i++)
                 {
                     var interval = producerWins2.Wins[i + 1] - producerWins2.Wins[i];
                     if (interval < producerWins2.Min.Interval || producerWins2.Min.Interval == 0)
